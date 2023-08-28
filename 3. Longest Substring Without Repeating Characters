@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int len=s.length();
+        int *index=(int*)malloc(len*sizeof(int));
+        for(int i=0; i<len; i++)
+            index[i]=1;
+        int longest=1;
+        int begin=0;
+        int count;
+        if(len==0)
+            return 0;
+        else if(len==1)
+            return 1;
+        else
+        {
+            for(int i=1; i<len; i++)
+            {
+                count=1;
+                for(int j=i-1; j>=begin; j--)
+                {
+                    if(s[j]!=s[i])
+                        count++;
+                    else
+                        begin=j+1;  //reset the head of possible substring
+                }
+                index[i]=count;
+                if(index[i]>longest)
+                    longest=index[i];
+            }
+        }
+        return longest;
+    }
+};
