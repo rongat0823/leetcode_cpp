@@ -1,0 +1,48 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int len=s.length();
+        int count=0;
+        int index=0;
+        int longest=0;
+        string ans;
+        if(len==1)
+            return s;
+        for(int i=0; i<len; i++)
+        {
+            count=0;
+            for(int j=len-1; j>i; j--)
+            {
+                int head=i;
+                int tail=j;
+                while(head!=tail && head<tail)
+                {
+                    if(s[head]==s[tail])
+                    {
+                        count+=1;
+                        head+=1;
+                        tail-=1;
+                    }
+                    else
+                    {
+                        count=0;
+                        break;
+                    }
+                }
+                if(count==((j-i+1)/2) && count!=0)
+                {
+                    if(longest<(j-i+1))
+                    {
+                        longest=(j-i+1);
+                        index=i;
+                    }
+                }
+            }
+        }
+        for(int i=0; i<longest; i++)
+            ans+=s[index+i];
+        if(ans=="")
+            ans+=s[0];
+        return ans;
+    }
+};
