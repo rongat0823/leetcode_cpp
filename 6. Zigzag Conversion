@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int len=s.length();
+        string ans;
+        if(numRows>=len || numRows==1)
+            return s;
+        else
+        {
+            int stuff=numRows*2-2;
+            int set;
+            //devide the string into many set
+            //each set have (stuff)amount of element(except for the last set)
+
+            if((len%stuff)!=0)
+                set=(len/(stuff))+1;
+            else
+                set=(len/(stuff));
+            int count=0;
+            for(int i=0; i<numRows; i++)
+            {
+                for(int j=0; j<set; j++)
+                {
+                    int index1=i+stuff*j;
+                    int index2=stuff-i+stuff*j;
+                    if((count==0 || count==(numRows-1)) && index1<len)
+                        ans+=s[index1];
+                    else if(count>0 && count<(numRows-1) && index1<len)
+                    {
+                        ans+=s[index1];
+                        if(index2<len)
+                            ans+=s[index2];
+                    }
+                    else
+                        break;
+                    if(count==numRows)
+                        break;
+                }
+                count++;
+            }
+        }
+        return ans;
+    }
+};
