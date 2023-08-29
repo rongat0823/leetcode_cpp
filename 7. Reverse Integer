@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int reverse(int x) {
+        long ans=0;
+        while(x)
+        {
+            if((ans>214748364) || (ans<-214748364) || ((ans==214748364) && (x%10)>7) || ((ans==-214748364) && (x%10)<-8))
+                return 0;
+            ans=ans*10+x%10;
+            x/=10;
+        }
+        return ans;
+    }
+};
