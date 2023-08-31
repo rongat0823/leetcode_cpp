@@ -1,0 +1,65 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        int space=0;
+        int i=0;
+        while(s[i]==' ')
+        {
+            space++;
+            i++;
+        }
+        int sign=0; //負號偵測
+        int sign_op=0; //符號數量偵測
+        int head=0; //第一個字偵測
+        int count=0;
+        long ans=0;
+        for(int i=space; i<s.length(); i++)
+        {
+            if(s[i]>=48 && s[i]<=57)
+            {
+                if(head==0)
+                    head=1;
+                count++;
+                ans=ans*10+(s[i]-48);
+            }
+            else if(s[i]=='+')
+            {
+                if(head!=0 || sign_op!=0)
+                    break;
+                head=1;
+                sign_op++;
+            }
+            else if(s[i]=='-')
+            {
+                if(head!=0 || sign_op!=0)
+                    break;
+                head=1;
+                sign=1;
+                sign_op++;
+            }
+            else if(s[i]=='.')
+                break;
+            else
+            {
+                if(head==0)
+                    return 0;
+                else
+                    if(count!=0 || sign_op!=0)
+                        break;
+            }
+            if(sign==0)
+            {
+                if(ans>INT_MAX)
+                    return INT_MAX;
+            }
+            else
+            {
+                if((ans*-1)<INT_MIN)
+                    return INT_MIN;
+            }
+        }
+        if(sign==1)
+            return ans*-1;
+        return ans;
+    }
+};
